@@ -1,0 +1,557 @@
+{
+  "actions": [
+    {
+      "isMajor": true,
+      "action": "install",
+      "resolves": [
+        {
+          "id": 534,
+          "path": "helmet>connect>debug",
+          "dev": false,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 534,
+          "path": "helmet>connect>finalhandler>debug",
+          "dev": false,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1176,
+          "path": "helmet>helmet-csp",
+          "dev": false,
+          "optional": false,
+          "bundled": false
+        }
+      ],
+      "module": "helmet",
+      "target": "4.6.0"
+    },
+    {
+      "isMajor": true,
+      "action": "install",
+      "resolves": [
+        {
+          "id": 1179,
+          "path": "forever>forever-monitor>broadway>nconf>optimist>minimist",
+          "dev": false,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1179,
+          "path": "forever>nconf>optimist>minimist",
+          "dev": false,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1179,
+          "path": "forever>optimist>minimist",
+          "dev": false,
+          "optional": false,
+          "bundled": false
+        }
+      ],
+      "module": "forever",
+      "target": "4.0.1"
+    },
+    {
+      "isMajor": true,
+      "action": "install",
+      "resolves": [
+        {
+          "id": 1203,
+          "path": "mongodb",
+          "dev": false,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1686,
+          "path": "mongodb>mongodb-core>bson",
+          "dev": false,
+          "optional": false,
+          "bundled": false
+        }
+      ],
+      "module": "mongodb",
+      "target": "4.1.0"
+    },
+    {
+      "action": "review",
+      "module": "uglify-js",
+      "resolves": [
+        {
+          "id": 48,
+          "path": "swig>uglify-js",
+          "dev": false,
+          "optional": false,
+          "bundled": false
+        }
+      ]
+    },
+    {
+      "action": "review",
+      "module": "timespan",
+      "resolves": [
+        {
+          "id": 533,
+          "path": "forever>timespan",
+          "dev": false,
+          "bundled": false,
+          "optional": false
+        }
+      ]
+    },
+    {
+      "action": "review",
+      "module": "braces",
+      "resolves": [
+        {
+          "id": 786,
+          "path": "forever>forever-monitor>chokidar>anymatch>micromatch>braces",
+          "dev": false,
+          "optional": false,
+          "bundled": false
+        }
+      ]
+    },
+    {
+      "action": "review",
+      "module": "minimist",
+      "resolves": [
+        {
+          "id": 1179,
+          "path": "forever>flatiron>broadway>nconf>optimist>minimist",
+          "dev": false,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1179,
+          "path": "forever>flatiron>optimist>minimist",
+          "dev": false,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1179,
+          "path": "swig>optimist>minimist",
+          "dev": false,
+          "optional": false,
+          "bundled": false
+        }
+      ]
+    },
+    {
+      "action": "review",
+      "module": "glob-parent",
+      "resolves": [
+        {
+          "id": 1751,
+          "path": "forever>forever-monitor>chokidar>anymatch>micromatch>parse-glob>glob-base>glob-parent",
+          "dev": false,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 1751,
+          "path": "forever>forever-monitor>chokidar>glob-parent",
+          "dev": false,
+          "optional": false,
+          "bundled": false
+        }
+      ]
+    }
+  ],
+  "advisories": {
+    "48": {
+      "findings": [
+        {
+          "version": "2.4.24",
+          "paths": [
+            "swig>uglify-js"
+          ]
+        }
+      ],
+      "id": 48,
+      "created": "2015-10-24T17:58:34.232Z",
+      "updated": "2018-02-24T00:59:58.129Z",
+      "deleted": null,
+      "title": "Regular Expression Denial of Service",
+      "found_by": {
+        "name": "Adam Baldwin"
+      },
+      "reported_by": {
+        "name": "Adam Baldwin"
+      },
+      "module_name": "uglify-js",
+      "cves": [
+        "CVE-2015-8858"
+      ],
+      "vulnerable_versions": "<2.6.0",
+      "patched_versions": ">=2.6.0",
+      "overview": "Versions of `uglify-js` prior to 2.6.0 are affected by a regular expression denial of service vulnerability when malicious inputs are passed into the `parse()` method.\n\n\n### Proof of Concept\n\n```\nvar u = require('uglify-js');\nvar genstr = function (len, chr) {\n    var result = \"\";\n    for (i=0; i<=len; i++) {\n        result = result + chr;\n    }\n\n    return result;\n}\n\nu.parse(\"var a = \" + genstr(process.argv[2], \"1\") + \".1ee7;\");\n```\n\n### Results\n```\n$ time node test.js 10000\nreal\t0m1.091s\nuser\t0m1.047s\nsys\t0m0.039s\n\n$ time node test.js 80000\nreal\t0m6.486s\nuser\t0m6.229s\nsys\t0m0.094s\n```",
+      "recommendation": "Update to version 2.6.0 or later.",
+      "references": "",
+      "access": "public",
+      "severity": "low",
+      "cwe": "CWE-400",
+      "metadata": {
+        "module_type": "CLI.Compiler",
+        "exploitability": 3,
+        "affected_components": "Internal::Code::Method::parse([*])"
+      },
+      "url": "https://npmjs.com/advisories/48"
+    },
+    "533": {
+      "findings": [
+        {
+          "version": "2.3.0",
+          "paths": [
+            "forever>timespan"
+          ]
+        }
+      ],
+      "id": 533,
+      "created": "2017-09-21T20:44:30.777Z",
+      "updated": "2019-06-24T21:56:43.513Z",
+      "deleted": null,
+      "title": "Regular Expression Denial of Service",
+      "found_by": {
+        "name": "Cristian-Alexandru Staicu"
+      },
+      "reported_by": {
+        "name": "Cristian-Alexandru Staicu"
+      },
+      "module_name": "timespan",
+      "cves": [
+        "CVE-2017-16115"
+      ],
+      "vulnerable_versions": ">=0.0.0",
+      "patched_versions": "<0.0.0",
+      "overview": "Affected versions of `timespan` are vulnerable to a regular expression denial of service when parsing dates.\n\nThe amplification for this vulnerability is significant, with 50,000 characters resulting in the event loop being blocked for around 10 seconds.",
+      "recommendation": "No direct patch is available for this vulnerability.\n\nCurrently, the best available solution is to use a functionally equivalent alternative package.\n\nIt is also sufficient to ensure that user input is not being passed into `timespan`, or that the maximum length of such user input is drastically reduced. Limiting the input length to 150 characters should be sufficient in most cases.",
+      "references": "- [Issue #10](https://github.com/indexzero/TimeSpan.js/issues/10)",
+      "access": "public",
+      "severity": "low",
+      "cwe": "CWE-400",
+      "metadata": {
+        "module_type": "Multi.Library",
+        "exploitability": 5,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/533"
+    },
+    "534": {
+      "findings": [
+        {
+          "version": "2.2.0",
+          "paths": [
+            "helmet>connect>debug",
+            "helmet>connect>finalhandler>debug"
+          ]
+        }
+      ],
+      "id": 534,
+      "created": "2017-09-25T18:55:55.956Z",
+      "updated": "2018-05-16T19:37:43.686Z",
+      "deleted": null,
+      "title": "Regular Expression Denial of Service",
+      "found_by": {
+        "name": "Cristian-Alexandru Staicu"
+      },
+      "reported_by": {
+        "name": "Cristian-Alexandru Staicu"
+      },
+      "module_name": "debug",
+      "cves": [
+        "CVE-2017-16137"
+      ],
+      "vulnerable_versions": "<= 2.6.8 || >= 3.0.0 <= 3.0.1",
+      "patched_versions": ">= 2.6.9 < 3.0.0 || >= 3.1.0",
+      "overview": "Affected versions of `debug` are vulnerable to regular expression denial of service when untrusted user input is passed into the `o` formatter. \n\nAs it takes 50,000 characters to block the event loop for 2 seconds, this issue is a low severity issue.",
+      "recommendation": "Version 2.x.x: Update to version 2.6.9 or later.\nVersion 3.x.x: Update to version 3.1.0 or later.\n",
+      "references": "- [Issue #501](https://github.com/visionmedia/debug/issues/501)\n- [PR #504](https://github.com/visionmedia/debug/pull/504)",
+      "access": "public",
+      "severity": "low",
+      "cwe": "CWE-400",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 5,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/534"
+    },
+    "786": {
+      "findings": [
+        {
+          "version": "1.8.5",
+          "paths": [
+            "forever>forever-monitor>chokidar>anymatch>micromatch>braces"
+          ]
+        }
+      ],
+      "id": 786,
+      "created": "2019-02-15T21:44:30.680Z",
+      "updated": "2019-04-02T18:18:29.356Z",
+      "deleted": null,
+      "title": "Regular Expression Denial of Service",
+      "found_by": {
+        "link": "",
+        "name": "Santosh Rao"
+      },
+      "reported_by": {
+        "link": "",
+        "name": "Santosh Rao"
+      },
+      "module_name": "braces",
+      "cves": [],
+      "vulnerable_versions": "<2.3.1",
+      "patched_versions": ">=2.3.1",
+      "overview": "Versions of `braces` prior to 2.3.1 are vulnerable to Regular Expression Denial of Service (ReDoS). Untrusted input may cause catastrophic backtracking while matching regular expressions. This can cause the application to be unresponsive leading to Denial of Service.",
+      "recommendation": "Upgrade to version 2.3.1 or higher.",
+      "references": "- [GitHub Commit](https://github.com/micromatch/braces/commit/abdafb0cae1e0c00f184abbadc692f4eaa98f451)",
+      "access": "public",
+      "severity": "low",
+      "cwe": "CWE-185",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 4,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/786"
+    },
+    "1176": {
+      "findings": [
+        {
+          "version": "1.2.2",
+          "paths": [
+            "helmet>helmet-csp"
+          ]
+        }
+      ],
+      "id": 1176,
+      "created": "2019-09-20T23:03:16.232Z",
+      "updated": "2019-09-27T19:28:16.869Z",
+      "deleted": null,
+      "title": "Configuration Override",
+      "found_by": {
+        "link": "",
+        "name": "William Durand"
+      },
+      "reported_by": {
+        "link": "",
+        "name": "William Durand"
+      },
+      "module_name": "helmet-csp",
+      "cves": [],
+      "vulnerable_versions": ">=1.2.2 <2.9.1",
+      "patched_versions": ">=2.9.1",
+      "overview": "Versions of `helmet-csp` before to 2.9.1 are vulnerable to a Configuration Override affecting the application's Content Security Policy (CSP). The package's browser sniffing for Firefox deletes the `default-src` CSP policy, which is the fallback policy. This allows an attacker to remove an application's default CSP, possibly rendering the application vulnerable to Cross-Site Scripting.",
+      "recommendation": "Upgrade to version 2.9.1 or later. Setting the `browserSniff` configuration to `false` in vulnerable versions also mitigates the issue.",
+      "references": "",
+      "access": "public",
+      "severity": "moderate",
+      "cwe": "CWE-16",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 6,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/1176"
+    },
+    "1179": {
+      "findings": [
+        {
+          "version": "0.0.10",
+          "paths": [
+            "forever>flatiron>broadway>nconf>optimist>minimist",
+            "forever>forever-monitor>broadway>nconf>optimist>minimist",
+            "forever>nconf>optimist>minimist",
+            "forever>flatiron>optimist>minimist",
+            "forever>optimist>minimist",
+            "swig>optimist>minimist"
+          ]
+        }
+      ],
+      "id": 1179,
+      "created": "2019-09-23T15:01:43.049Z",
+      "updated": "2020-03-18T19:41:45.921Z",
+      "deleted": null,
+      "title": "Prototype Pollution",
+      "found_by": {
+        "link": "https://www.checkmarx.com/resources/blog/",
+        "name": "Checkmarx Research Team",
+        "email": ""
+      },
+      "reported_by": {
+        "link": "https://www.checkmarx.com/resources/blog/",
+        "name": "Checkmarx Research Team",
+        "email": ""
+      },
+      "module_name": "minimist",
+      "cves": [],
+      "vulnerable_versions": "<0.2.1 || >=1.0.0 <1.2.3",
+      "patched_versions": ">=0.2.1 <1.0.0 || >=1.2.3",
+      "overview": "Affected versions of `minimist` are vulnerable to prototype pollution. Arguments are not properly sanitized, allowing an attacker to modify the prototype of `Object`, causing the addition or modification of an existing property that will exist on all objects.  \nParsing the argument `--__proto__.y=Polluted` adds a `y` property with value `Polluted` to all objects. The argument `--__proto__=Polluted` raises and uncaught error and crashes the application.  \nThis is exploitable if attackers have control over the arguments being passed to `minimist`.\n",
+      "recommendation": "Upgrade to versions 0.2.1, 1.2.3 or later.",
+      "references": "- [GitHub commit 1](https://github.com/substack/minimist/commit/4cf1354839cb972e38496d35e12f806eea92c11f#diff-a1e0ee62c91705696ddb71aa30ad4f95)\n- [GitHub commit 2](https://github.com/substack/minimist/commit/63e7ed05aa4b1889ec2f3b196426db4500cbda94)",
+      "access": "public",
+      "severity": "low",
+      "cwe": "CWE-471",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 1,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/1179"
+    },
+    "1203": {
+      "findings": [
+        {
+          "version": "2.2.36",
+          "paths": [
+            "mongodb"
+          ]
+        }
+      ],
+      "id": 1203,
+      "created": "2019-10-04T18:34:48.787Z",
+      "updated": "2019-10-18T16:52:03.441Z",
+      "deleted": null,
+      "title": "Denial of Service",
+      "found_by": {
+        "link": "",
+        "name": "Behnaz Hassanshahi",
+        "email": ""
+      },
+      "reported_by": {
+        "link": "",
+        "name": "Behnaz Hassanshahi",
+        "email": ""
+      },
+      "module_name": "mongodb",
+      "cves": [],
+      "vulnerable_versions": "<3.1.13",
+      "patched_versions": ">=3.1.13",
+      "overview": "Versions of `mongodb` prior to 3.1.13 are vulnerable to Denial of Service. The package fails to properly catch an exception when a collection name is invalid and the DB does not exist, crashing the application.",
+      "recommendation": "Upgrade to version 3.1.13 or later.",
+      "references": "",
+      "access": "public",
+      "severity": "high",
+      "cwe": "CWE-248",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 3,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/1203"
+    },
+    "1686": {
+      "findings": [
+        {
+          "version": "1.0.9",
+          "paths": [
+            "mongodb>mongodb-core>bson"
+          ]
+        }
+      ],
+      "id": 1686,
+      "created": "2021-05-07T16:07:11.235Z",
+      "updated": "2021-05-07T16:13:54.768Z",
+      "deleted": null,
+      "title": "Deserialization of Untrusted Data in bson",
+      "found_by": {
+        "link": "",
+        "name": "Anonymous",
+        "email": ""
+      },
+      "reported_by": {
+        "link": "",
+        "name": "Anonymous",
+        "email": ""
+      },
+      "module_name": "bson",
+      "cves": [
+        "CVE-2020-7610"
+      ],
+      "vulnerable_versions": "<1.1.4",
+      "patched_versions": ">=1.1.4",
+      "overview": "Versions of `bson` before 1.1.4 are vulnerable to Deserialization of Untrusted Data. The package will ignore an unknown value for an object's _bsotype, leading to cases where an object is serialized as a document rather than the intended BSON type.",
+      "recommendation": "Upgrade to version 1.1.4 or later",
+      "references": "- [CVE](https://nvd.nist.gov/vuln/detail/CVE-2020-7610)\n- [GitHub Advisory](https://github.com/advisories/GHSA-v8w9-2789-6hhr)\n",
+      "access": "public",
+      "severity": "high",
+      "cwe": "CWE-502",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 7,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/1686"
+    },
+    "1751": {
+      "findings": [
+        {
+          "version": "2.0.0",
+          "paths": [
+            "forever>forever-monitor>chokidar>anymatch>micromatch>parse-glob>glob-base>glob-parent",
+            "forever>forever-monitor>chokidar>glob-parent"
+          ]
+        }
+      ],
+      "id": 1751,
+      "created": "2021-06-07T21:57:10.135Z",
+      "updated": "2021-06-07T21:58:07.745Z",
+      "deleted": null,
+      "title": "Regular expression denial of service",
+      "found_by": {
+        "link": "",
+        "name": "Anonymous",
+        "email": ""
+      },
+      "reported_by": {
+        "link": "",
+        "name": "Anonymous",
+        "email": ""
+      },
+      "module_name": "glob-parent",
+      "cves": [
+        "CVE-2020-28469"
+      ],
+      "vulnerable_versions": "<5.1.2",
+      "patched_versions": ">=5.1.2",
+      "overview": "`glob-parent` before 5.1.2 has a regular expression denial of service vulnerability. The enclosure regex used to check for strings ending in enclosure containing path separator.",
+      "recommendation": "Upgrade to version 5.1.2 or later",
+      "references": "- [CVE](https://nvd.nist.gov/vuln/detail/CVE-2020-28469)\n- [GitHub Advisory](https://github.com/advisories/GHSA-ww39-953v-wcq6)\n",
+      "access": "public",
+      "severity": "moderate",
+      "cwe": "CWE-400",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 5,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/1751"
+    }
+  },
+  "muted": [],
+  "metadata": {
+    "vulnerabilities": {
+      "info": 0,
+      "low": 11,
+      "moderate": 3,
+      "high": 2,
+      "critical": 0
+    },
+    "dependencies": 405,
+    "devDependencies": 0,
+    "optionalDependencies": 4,
+    "totalDependencies": 409
+  },
+  "runId": "7e6d1422-e66c-4471-bfd8-9879831d10c4"
+}
