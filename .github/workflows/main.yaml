@@ -29,7 +29,9 @@ jobs:
     #    run: npm install
 
       - name: run Safety Check
-        run: safety check
+        run:| 
+          safety check
+          safety check -r requirements.txt --json -o safety.json        
 
 #  deployment:
  #   runs-on: ubuntu-latest
